@@ -12,4 +12,5 @@
     <string name="empty_list_label_text">You\'re all caught up!</string>
     <string name="empty_list_detail_text">We\'ll notify you when a new survey becomes available.</string>
     <string name="lpfi_credit_message">Built in collaboration with the LPFI Organization, Maanasa Kotha, Thomas Flores, and Gabrielle Henry</string>
+    <string name="network_unavailable_message">Network unavailable</string>
 </resources>

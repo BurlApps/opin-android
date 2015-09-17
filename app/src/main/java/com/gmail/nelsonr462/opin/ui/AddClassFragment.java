@@ -37,12 +37,13 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        EditText classCodeEditText = (EditText) getView().findViewById(R.id.classCodeEditText);
+        final EditText classCodeEditText = (EditText) getView().findViewById(R.id.classCodeEditText);
         classCodeEditText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         Button addClassButton = (Button) getView().findViewById(R.id.addClassButton);
         addClassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                classCodeEditText.clearFocus();
                 addClass();
             }
         });
@@ -53,16 +54,15 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
         final Button addClassButton = (Button) getView().findViewById(R.id.addClassButton);
         final ProgressBar addClassProgressBar = (ProgressBar) getView().findViewById(R.id.addClassProgressBar);
 
-
         if (!ParseConstants.isNetworkAvailable) {
-            Toast.makeText(getActivity(), "Network unavailable", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.network_unavailable_message, Toast.LENGTH_SHORT).show();
             return;
         }
 
         addClassButton.setEnabled(false);
         addClassProgressBar.setVisibility(View.VISIBLE);
 
-        String classCode = /*mClassCode*/classCodeEditText.getText().toString();
+        String classCode = classCodeEditText.getText().toString();
         classCode = classCode.replaceAll("[^A-Za-z0-9]", "");
         classCode = classCode.toLowerCase();
 

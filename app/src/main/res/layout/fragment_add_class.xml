@@ -1,21 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@android:color/white"
              tools:context="com.gmail.nelsonr462.opin.ui.AddClassFragment">
 
-
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/classCodeEditText"
-        android:layout_gravity="center"
         android:hint="@string/class_code_input_hint"
         android:maxLines="1"
-        android:gravity="center"
         android:singleLine="true"
-        />
+        android:layout_above="@+id/addClassButton"
+        android:layout_alignLeft="@+id/addClassButton"
+        android:layout_alignStart="@+id/addClassButton"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:layout_width="300dp"
@@ -23,9 +23,11 @@
         android:text="@string/add_class_button_text"
         android:id="@+id/addClassButton"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
         android:background="@color/ColorPrimary"
-        android:textColor="@color/add_class_button_text_color"/>
+        android:textColor="@color/add_class_button_text_color"
+        android:layout_above="@+id/lpfiCreditTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"/>
 
     <TextView
         android:layout_width="300dp"
@@ -34,8 +36,10 @@
         android:text="@string/add_code_instructions"
         android:id="@+id/addClassTextView"
         android:layout_gravity="center"
-        android:layout_marginBottom="120dp"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:layout_above="@+id/classCodeEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,23 +49,28 @@
         android:layout_gravity="center"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:layout_marginBottom="160dp"/>
+        android:layout_above="@+id/addClassTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addClassProgressBar"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:visibility="invisible"/>
 
     <TextView
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:text="@string/lpfi_credit_message"
         android:id="@+id/lpfiCreditTextView"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="20dp"
         android:textSize="12sp"
-        android:gravity="center"/>
-</FrameLayout>
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"/>
+</RelativeLayout>

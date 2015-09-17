@@ -71,7 +71,7 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
     public void onResume() {
         super.onResume();
         if (!ParseConstants.isNetworkAvailable) {
-            Toast.makeText(getActivity(), "Network unavailable", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.network_unavailable_message, Toast.LENGTH_SHORT).show();
             return;
         }
 
