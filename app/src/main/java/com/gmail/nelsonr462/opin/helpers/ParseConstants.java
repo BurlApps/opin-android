@@ -1,4 +1,4 @@
-package com.gmail.nelsonr462.opin;
+package com.gmail.nelsonr462.opin.helpers;
 
 public class ParseConstants {
 
@@ -23,6 +23,9 @@ public class ParseConstants {
 
     // Check if app is in foreground
     public static boolean isAppActive = false;
+
+    // Network Availability
+    public static boolean isNetworkAvailable = false;
 
 
 }

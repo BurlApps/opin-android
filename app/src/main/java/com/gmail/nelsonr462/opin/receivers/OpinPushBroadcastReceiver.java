@@ -1,4 +1,4 @@
-package com.gmail.nelsonr462.opin;
+package com.gmail.nelsonr462.opin.receivers;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 
+import com.gmail.nelsonr462.opin.OpinApplication;
+import com.gmail.nelsonr462.opin.helpers.ParseConstants;
+import com.gmail.nelsonr462.opin.R;
+import com.gmail.nelsonr462.opin.ui.SurveyWebViewActivity;
 import com.parse.ParseConfig;
 import com.parse.ParseInstallation;
 import com.parse.ParsePushBroadcastReceiver;

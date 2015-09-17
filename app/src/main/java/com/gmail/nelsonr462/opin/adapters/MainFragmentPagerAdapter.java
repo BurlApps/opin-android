@@ -1,12 +1,12 @@
-package com.gmail.nelsonr462.opin;
+package com.gmail.nelsonr462.opin.adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.gmail.nelsonr462.opin.AddClassFragment;
-import com.gmail.nelsonr462.opin.SurveyFragment;
+import com.gmail.nelsonr462.opin.ui.AddClassFragment;
+import com.gmail.nelsonr462.opin.ui.SurveyFragment;
 
 /**
  * Created by nelson on 9/9/15.

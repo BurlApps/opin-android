@@ -1,13 +1,14 @@
-package com.gmail.nelsonr462.opin;
+package com.gmail.nelsonr462.opin.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gmail.nelsonr462.opin.helpers.ParseConstants;
+import com.gmail.nelsonr462.opin.R;
 import com.parse.ParseObject;
 
 import java.util.List;

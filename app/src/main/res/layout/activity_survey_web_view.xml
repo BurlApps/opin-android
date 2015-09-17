@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.gmail.nelsonr462.opin.SurveyWebViewActivity"
+                tools:context="com.gmail.nelsonr462.opin.ui.SurveyWebViewActivity"
                 android:background="#faffff"
                 android:id="@+id/surveyWebViewRelativeLayout">
 

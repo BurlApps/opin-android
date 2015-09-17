@@ -1,17 +1,25 @@
-package com.gmail.nelsonr462.opin;
+package com.gmail.nelsonr462.opin.ui;
 
+import android.content.Context;
 import android.graphics.Typeface;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gmail.nelsonr462.opin.adapters.MainFragmentPagerAdapter;
+import com.gmail.nelsonr462.opin.helpers.ParseConstants;
+import com.gmail.nelsonr462.opin.R;
+import com.gmail.nelsonr462.opin.helpers.SlidingTabLayout;
+import com.parse.ParseAnalytics;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements SurveyFragment.OnSurveyFragmentClick, AddClassFragment.OnClassFragmentInteraction {
+public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.toolbar_title) TextView mToolbarTitle;
 
@@ -20,8 +28,9 @@ public class MainActivity extends AppCompatActivity implements SurveyFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
-
+        ParseConstants.isNetworkAvailable = isNetworkAvailable();
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Courgette-Regular.ttf");
         mToolbarTitle.setTypeface(typeface);
@@ -29,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements SurveyFragment.On
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
         toolbar.setVisibility(View.VISIBLE);
         setSupportActionBar(toolbar);
+        assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
@@ -68,13 +78,16 @@ public class MainActivity extends AppCompatActivity implements SurveyFragment.On
         ParseConstants.isAppActive = true;
     }
 
-    @Override
-    public void onSurveyFragmentClick(String id) {
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        boolean isAvailable = false;
+        if(networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
     }
 
-    @Override
-    public void onClassFragmentInteraction(Uri uri) {
-
-    }
 }

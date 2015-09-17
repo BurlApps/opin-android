@@ -1,25 +1,22 @@
-package com.gmail.nelsonr462.opin;
+package com.gmail.nelsonr462.opin.ui;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.gmail.nelsonr462.opin.helpers.ParseConstants;
+import com.gmail.nelsonr462.opin.R;
 import com.nineoldandroids.animation.Animator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SurveyWebViewActivity extends AppCompatActivity {
     private String mSurveyUrl;

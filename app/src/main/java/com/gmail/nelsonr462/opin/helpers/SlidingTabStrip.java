@@ -1,4 +1,4 @@
-package com.gmail.nelsonr462.opin;
+package com.gmail.nelsonr462.opin.helpers;
 
 import android.R;
 import android.content.Context;

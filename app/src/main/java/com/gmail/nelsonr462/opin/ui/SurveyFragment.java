@@ -1,6 +1,5 @@
-package com.gmail.nelsonr462.opin;
+package com.gmail.nelsonr462.opin.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +10,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.gmail.nelsonr462.opin.OpinApplication;
+import com.gmail.nelsonr462.opin.helpers.ParseConstants;
+import com.gmail.nelsonr462.opin.R;
+import com.gmail.nelsonr462.opin.adapters.SurveyAdapter;
 import com.parse.ConfigCallback;
 import com.parse.FindCallback;
 import com.parse.ParseConfig;
@@ -33,7 +37,6 @@ import butterknife.ButterKnife;
 public class SurveyFragment extends android.support.v4.app.ListFragment {
     private String TAG = SurveyFragment.class.getSimpleName();
 
-    private OnSurveyFragmentClick mListener;
     private ParseInstallation mParseInstallation;
     protected List<ParseObject> mSurveys;
     protected ParseRelation<ParseObject> mSurveyRelation;
@@ -62,7 +65,6 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
                 }
             }
         });
-
     }
 
     @Override
@@ -70,6 +72,7 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_survey, container, false);
         ButterKnife.bind(this, rootView);
+        mProgressBar.setVisibility(View.INVISIBLE);
 
         return rootView;
     }
@@ -77,6 +80,11 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (!ParseConstants.isNetworkAvailable) {
+            Toast.makeText(getActivity(), "Network unavailable", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mEmptyLayout.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
         mParseInstallation = ParseInstallation.getCurrentInstallation();
@@ -86,11 +94,8 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
-                    Log.d(TAG, e.getMessage());
                     return;
                 }
-
-
 
                 mSurveyRelation = mParseInstallation.getRelation(ParseConstants.KEY_SURVEYS);
                 ParseQuery<ParseObject> query = mSurveyRelation.getQuery();
@@ -104,12 +109,6 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
                         mEmptyLayout.setVisibility(View.VISIBLE);
                         if (e == null) {
                             mSurveys = surveyList;
-                            String[] surveys = new String[mSurveys.size()];
-                            int i = 0;
-                            for (ParseObject survey : mSurveys) {
-                                surveys[i] = survey.getString(ParseConstants.KEY_NAME);
-                                i++;
-                            }
 
                             SurveyAdapter adapter = new SurveyAdapter(
                                     getListView().getContext(),
@@ -121,7 +120,7 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
                             Log.e(TAG, e.getMessage());
                             AlertDialog.Builder builder = new AlertDialog.Builder(getListView().getContext());
                             builder.setMessage(e.getMessage())
-                                    .setTitle(R.string.fetch_surveys_error_title)
+                                    .setTitle(R.string.error_title)
                                     .setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = builder.create();
                             dialog.show();
@@ -130,24 +129,6 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
                 });
             }
         });
-
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnSurveyFragmentClick) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnSurveyFragmentClick");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -171,17 +152,9 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
             ParseConstants.COLOR_LOADER_PRIMARY[i] = loaderPrimary.optInt(i);
         }
 
-
         Intent intent = new Intent(getActivity(), SurveyWebViewActivity.class);
         intent.putExtra("surveyUrl", url);
         startActivity(intent);
-
-
-
-    }
-
-    public interface OnSurveyFragmentClick {
-        public void onSurveyFragmentClick(String id);
     }
 
 }

@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.gmail.nelsonr462.opin.AddClassFragment">
+             tools:context="com.gmail.nelsonr462.opin.ui.AddClassFragment">
 
 
     <EditText
@@ -24,7 +24,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
         android:background="@color/ColorPrimary"
-        android:textColor="#ffffff"/>
+        android:textColor="@color/add_class_button_text_color"/>
 
     <TextView
         android:layout_width="300dp"
@@ -45,4 +45,11 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_marginBottom="160dp"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addClassProgressBar"
+        android:layout_gravity="center"/>
 </FrameLayout>

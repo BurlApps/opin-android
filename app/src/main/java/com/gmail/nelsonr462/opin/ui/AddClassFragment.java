@@ -1,15 +1,17 @@
-package com.gmail.nelsonr462.opin;
+package com.gmail.nelsonr462.opin.ui;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.gmail.nelsonr462.opin.helpers.ParseConstants;
+import com.gmail.nelsonr462.opin.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -27,52 +29,32 @@ import butterknife.OnClick;
 
 public class AddClassFragment extends android.support.v4.app.Fragment {
 
-    private OnClassFragmentInteraction mListener;
-
     @Bind(R.id.classCodeEditText) EditText mClassCode;
-
+    @Bind(R.id.addClassProgressBar) ProgressBar mProgressBar;
+    @Bind(R.id.addClassButton) Button mAddClassButton;
 
     public AddClassFragment() {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_add_class, container, false);
         ButterKnife.bind(this, rootView);
         mClassCode.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        mProgressBar.setVisibility(View.INVISIBLE);
 
         return rootView;
     }
 
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnClassFragmentInteraction) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnClassFragmentInteraction");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     @OnClick(R.id.addClassButton)
     public void addClass() {
-        // to lowercase, alphanumeric, query for class code
+        if (!ParseConstants.isNetworkAvailable) {
+            Toast.makeText(getActivity(), "Network unavailable", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mAddClassButton.setEnabled(false);
+        mProgressBar.setVisibility(View.VISIBLE);
         String classCode = mClassCode.getText().toString();
         classCode = classCode.replaceAll("[^A-Za-z0-9]", "");
         classCode = classCode.toLowerCase();
@@ -82,12 +64,11 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> classes, ParseException e) {
-                // Change progress bar visibility
-
+                mProgressBar.setVisibility(View.INVISIBLE);
+                mAddClassButton.setEnabled(true);
                 mClassCode.setText("");
 
                 if(e == null && classes.size() > 0) {
-                    // success
                     ParseObject classObject = classes.get(0);
                     ParseRelation<ParseInstallation> relation = classObject.getRelation(ParseConstants.KEY_STUDENTS_RELATION);
                     ParseInstallation installation = ParseInstallation.getCurrentInstallation();
@@ -103,7 +84,6 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
                         }
                     });
                 } else {
-                    // error
                     alertUser(0);
                 }
             }
@@ -114,23 +94,17 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
         if (errorType == 0) {
             builder.setMessage(R.string.add_class_error_message)
-                    .setTitle(R.string.add_class_error_title)
+                    .setTitle(R.string.error_title)
                     .setPositiveButton(android.R.string.ok, null);
             android.app.AlertDialog dialog = builder.create();
             dialog.show();
         } else if (errorType == 1) {
             builder.setMessage(R.string.save_add_class_error_message)
-                    .setTitle(R.string.add_class_error_title)
+                    .setTitle(R.string.error_title)
                     .setPositiveButton(android.R.string.ok, null);
             android.app.AlertDialog dialog = builder.create();
             dialog.show();
         }
-    }
-
-
-
-    public interface OnClassFragmentInteraction {
-        public void onClassFragmentInteraction(Uri uri);
     }
 
 }
