@@ -41,21 +41,42 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_class, container, false);
         ButterKnife.bind(this, rootView);
-        mClassCode.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-        mProgressBar.setVisibility(View.INVISIBLE);
 
+//        mClassCode.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         return rootView;
     }
 
-    @OnClick(R.id.addClassButton)
+    @Override
+    public void onResume() {
+        super.onResume();
+        EditText classCodeEditText = (EditText) getView().findViewById(R.id.classCodeEditText);
+        classCodeEditText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        Button addClassButton = (Button) getView().findViewById(R.id.addClassButton);
+        addClassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addClass();
+            }
+        });
+    }
+
     public void addClass() {
+        final EditText classCodeEditText = (EditText) getView().findViewById(R.id.classCodeEditText);
+        final Button addClassButton = (Button) getView().findViewById(R.id.addClassButton);
+        final ProgressBar addClassProgressBar = (ProgressBar) getView().findViewById(R.id.addClassProgressBar);
+
+
         if (!ParseConstants.isNetworkAvailable) {
             Toast.makeText(getActivity(), "Network unavailable", Toast.LENGTH_SHORT).show();
             return;
         }
-        mAddClassButton.setEnabled(false);
-        mProgressBar.setVisibility(View.VISIBLE);
-        String classCode = mClassCode.getText().toString();
+
+        addClassButton.setEnabled(false);
+//        mAddClassButton.setEnabled(false);
+        addClassProgressBar.setVisibility(View.VISIBLE);
+//        mProgressBar.setVisibility(View.VISIBLE);
+
+        String classCode = /*mClassCode*/classCodeEditText.getText().toString();
         classCode = classCode.replaceAll("[^A-Za-z0-9]", "");
         classCode = classCode.toLowerCase();
 
@@ -64,9 +85,9 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> classes, ParseException e) {
-                mProgressBar.setVisibility(View.INVISIBLE);
-                mAddClassButton.setEnabled(true);
-                mClassCode.setText("");
+                /*mProgressBar*/addClassProgressBar.setVisibility(View.INVISIBLE);
+                /*mAddClassButton*/addClassButton.setEnabled(true);
+                /*mClassCode*/classCodeEditText.setText("");
 
                 if(e == null && classes.size() > 0) {
                     ParseObject classObject = classes.get(0);

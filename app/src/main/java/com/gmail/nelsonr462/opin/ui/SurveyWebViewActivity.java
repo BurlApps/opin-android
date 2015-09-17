@@ -32,19 +32,23 @@ public class SurveyWebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_survey_web_view);
         ButterKnife.bind(this);
 
-        mProgressBar.setVisibility(View.VISIBLE);
+        final ProgressBar webProgressBar = (ProgressBar) findViewById(R.id.webViewProgressBar);
+        final WebView surveyWebView = (WebView) findViewById(R.id.surveyWebView);
+        final RelativeLayout webRelativeLayout = (RelativeLayout) findViewById(R.id.surveyWebViewRelativeLayout);
+
+        /*mProgressBar*/webProgressBar.setVisibility(View.VISIBLE);
         mSurveyUrl = getIntent().getStringExtra("surveyUrl");
 
-        mSurveyWebView.getSettings().setJavaScriptEnabled(true);
-        mSurveyWebView.setVisibility(View.INVISIBLE);
-        mSurveyWebView.setBackgroundColor(Color.rgb(
+        /*mSurveyWebView*/surveyWebView.getSettings().setJavaScriptEnabled(true);
+        /*mSurveyWebView*/surveyWebView.setVisibility(View.INVISIBLE);
+        /*mSurveyWebView*/surveyWebView.setBackgroundColor(Color.rgb(
                 ParseConstants.COLOR_LOADER_BACKGROUND[0],
                 ParseConstants.COLOR_LOADER_BACKGROUND[1],
                 ParseConstants.COLOR_LOADER_BACKGROUND[2]
-                ));
-        mSurveyWebView.loadUrl(mSurveyUrl);
+        ));
+        /*mSurveyWebView*/surveyWebView.loadUrl(mSurveyUrl);
 
-        mSurveyWebView.setWebViewClient(new WebViewClient() {
+        /*mSurveyWebView*/surveyWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //                mSurveyWebView.setVisibility(View.INVISIBLE);
@@ -71,17 +75,17 @@ public class SurveyWebViewActivity extends AppCompatActivity {
 
                             }
                         })
-                        .playOn(mRelativeLayout);
+                        .playOn(webRelativeLayout);
                 return false;
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                mProgressBar.setVisibility(View.INVISIBLE);
-                mSurveyWebView.setVisibility(View.VISIBLE);
+                /*mProgressBar*/webProgressBar.setVisibility(View.INVISIBLE);
+                /*mSurveyWebView*/surveyWebView.setVisibility(View.VISIBLE);
                 YoYo.with(Techniques.SlideInUp)
                         .duration(300)
-                        .playOn(mSurveyWebView);
+                        .playOn(/*mSurveyWebView*/surveyWebView);
             }
         });
 

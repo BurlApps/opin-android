@@ -72,8 +72,6 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_survey, container, false);
         ButterKnife.bind(this, rootView);
-        mProgressBar.setVisibility(View.INVISIBLE);
-
         return rootView;
     }
 
@@ -85,8 +83,12 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
             return;
         }
 
-        mEmptyLayout.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.VISIBLE);
+        final LinearLayout emptyView = (LinearLayout) getView().findViewById(android.R.id.empty);
+        emptyView.setVisibility(View.INVISIBLE);
+        final ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.surveyLoadProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+//        mEmptyLayout.setVisibility(View.INVISIBLE);
+//        mProgressBar.setVisibility(View.VISIBLE);
         mParseInstallation = ParseInstallation.getCurrentInstallation();
         OpinApplication.mCurrentInstallation = mParseInstallation;
 
@@ -105,8 +107,10 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> surveyList, ParseException e) {
-                        mProgressBar.setVisibility(View.INVISIBLE);
-                        mEmptyLayout.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        emptyView.setVisibility(View.VISIBLE);
+//                        mProgressBar.setVisibility(View.INVISIBLE);
+//                        mEmptyLayout.setVisibility(View.VISIBLE);
                         if (e == null) {
                             mSurveys = surveyList;
 
