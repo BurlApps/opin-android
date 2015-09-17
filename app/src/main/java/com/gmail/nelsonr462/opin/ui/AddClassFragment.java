@@ -22,16 +22,8 @@ import com.parse.SaveCallback;
 
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 
 public class AddClassFragment extends android.support.v4.app.Fragment {
-
-    @Bind(R.id.classCodeEditText) EditText mClassCode;
-    @Bind(R.id.addClassProgressBar) ProgressBar mProgressBar;
-    @Bind(R.id.addClassButton) Button mAddClassButton;
 
     public AddClassFragment() {
     }
@@ -39,11 +31,7 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_add_class, container, false);
-        ButterKnife.bind(this, rootView);
-
-//        mClassCode.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-        return rootView;
+         return inflater.inflate(R.layout.fragment_add_class, container, false);
     }
 
     @Override
@@ -72,9 +60,7 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
         }
 
         addClassButton.setEnabled(false);
-//        mAddClassButton.setEnabled(false);
         addClassProgressBar.setVisibility(View.VISIBLE);
-//        mProgressBar.setVisibility(View.VISIBLE);
 
         String classCode = /*mClassCode*/classCodeEditText.getText().toString();
         classCode = classCode.replaceAll("[^A-Za-z0-9]", "");
@@ -85,9 +71,9 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> classes, ParseException e) {
-                /*mProgressBar*/addClassProgressBar.setVisibility(View.INVISIBLE);
-                /*mAddClassButton*/addClassButton.setEnabled(true);
-                /*mClassCode*/classCodeEditText.setText("");
+                addClassProgressBar.setVisibility(View.INVISIBLE);
+                addClassButton.setEnabled(true);
+                classCodeEditText.setText("");
 
                 if(e == null && classes.size() > 0) {
                     ParseObject classObject = classes.get(0);

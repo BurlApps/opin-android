@@ -25,6 +25,5 @@ dependencies {
     compile 'com.android.support:design:22.2.0'
     compile files('libs/Parse-1.10.1.jar')
     compile files('libs/ParseCrashReporting-1.10.1.jar')
-    compile files('libs/butterknife-7.0.1.jar')
     compile files('libs/AndroidEasingFunctions-1.0.0.jar')
 }

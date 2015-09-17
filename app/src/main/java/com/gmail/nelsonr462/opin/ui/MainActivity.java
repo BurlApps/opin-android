@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,9 +15,6 @@ import com.gmail.nelsonr462.opin.helpers.ParseConstants;
 import com.gmail.nelsonr462.opin.R;
 import com.gmail.nelsonr462.opin.helpers.SlidingTabLayout;
 import com.parse.ParseAnalytics;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 

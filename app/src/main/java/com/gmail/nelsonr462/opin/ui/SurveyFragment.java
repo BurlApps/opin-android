@@ -30,9 +30,6 @@ import org.json.JSONArray;
 
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 
 public class SurveyFragment extends android.support.v4.app.ListFragment {
     private String TAG = SurveyFragment.class.getSimpleName();
@@ -41,9 +38,6 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
     protected List<ParseObject> mSurveys;
     protected ParseRelation<ParseObject> mSurveyRelation;
     protected ParseConfig mParseConfig;
-
-    @Bind(R.id.surveyLoadProgressBar) ProgressBar mProgressBar;
-    @Bind(android.R.id.empty) LinearLayout mEmptyLayout;
 
 
     public SurveyFragment() {
@@ -70,9 +64,7 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_survey, container, false);
-        ButterKnife.bind(this, rootView);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_survey, container, false);
     }
 
     @Override
@@ -87,8 +79,6 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
         emptyView.setVisibility(View.INVISIBLE);
         final ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.surveyLoadProgressBar);
         progressBar.setVisibility(View.VISIBLE);
-//        mEmptyLayout.setVisibility(View.INVISIBLE);
-//        mProgressBar.setVisibility(View.VISIBLE);
         mParseInstallation = ParseInstallation.getCurrentInstallation();
         OpinApplication.mCurrentInstallation = mParseInstallation;
 
@@ -109,8 +99,6 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
                     public void done(List<ParseObject> surveyList, ParseException e) {
                         progressBar.setVisibility(View.INVISIBLE);
                         emptyView.setVisibility(View.VISIBLE);
-//                        mProgressBar.setVisibility(View.INVISIBLE);
-//                        mEmptyLayout.setVisibility(View.VISIBLE);
                         if (e == null) {
                             mSurveys = surveyList;
 
