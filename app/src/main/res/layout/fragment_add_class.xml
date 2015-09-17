@@ -52,4 +52,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/addClassProgressBar"
         android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/lpfi_credit_message"
+        android:id="@+id/lpfiCreditTextView"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="20dp"
+        android:textSize="12sp"
+        android:gravity="center"/>
 </FrameLayout>
