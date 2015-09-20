@@ -8,8 +8,8 @@ android {
         applicationId "com.gmail.nelsonr462.opin"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 8
-        versionName "1.16"
+        versionCode 9
+        versionName "1.17"
     }
     buildTypes {
         release {

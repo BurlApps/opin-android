@@ -24,6 +24,7 @@ import java.util.List;
 
 
 public class AddClassFragment extends android.support.v4.app.Fragment {
+    private View mView;
 
     public AddClassFragment() {
     }
@@ -31,15 +32,16 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         return inflater.inflate(R.layout.fragment_add_class, container, false);
+        mView = inflater.inflate(R.layout.fragment_add_class, container, false);
+        return mView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        final EditText classCodeEditText = (EditText) getView().findViewById(R.id.classCodeEditText);
+        final EditText classCodeEditText = (EditText) mView.findViewById(R.id.classCodeEditText);
         classCodeEditText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-        Button addClassButton = (Button) getView().findViewById(R.id.addClassButton);
+        Button addClassButton = (Button) mView.findViewById(R.id.addClassButton);
         addClassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,9 +52,9 @@ public class AddClassFragment extends android.support.v4.app.Fragment {
     }
 
     public void addClass() {
-        final EditText classCodeEditText = (EditText) getView().findViewById(R.id.classCodeEditText);
-        final Button addClassButton = (Button) getView().findViewById(R.id.addClassButton);
-        final ProgressBar addClassProgressBar = (ProgressBar) getView().findViewById(R.id.addClassProgressBar);
+        final EditText classCodeEditText = (EditText) mView.findViewById(R.id.classCodeEditText);
+        final Button addClassButton = (Button) mView.findViewById(R.id.addClassButton);
+        final ProgressBar addClassProgressBar = (ProgressBar) mView.findViewById(R.id.addClassProgressBar);
 
         if (!ParseConstants.isNetworkAvailable) {
             Toast.makeText(getActivity(), R.string.network_unavailable_message, Toast.LENGTH_SHORT).show();

@@ -33,6 +33,7 @@ import java.util.List;
 
 public class SurveyFragment extends android.support.v4.app.ListFragment {
     private String TAG = SurveyFragment.class.getSimpleName();
+    private View mView;
 
     private ParseInstallation mParseInstallation;
     protected List<ParseObject> mSurveys;
@@ -64,7 +65,8 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_survey, container, false);
+        mView =  inflater.inflate(R.layout.fragment_survey, container, false);
+        return mView;
     }
 
     @Override
@@ -75,9 +77,9 @@ public class SurveyFragment extends android.support.v4.app.ListFragment {
             return;
         }
 
-        final LinearLayout emptyView = (LinearLayout) getView().findViewById(android.R.id.empty);
+        final LinearLayout emptyView = (LinearLayout) mView.findViewById(android.R.id.empty);
         emptyView.setVisibility(View.INVISIBLE);
-        final ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.surveyLoadProgressBar);
+        final ProgressBar progressBar = (ProgressBar) mView.findViewById(R.id.surveyLoadProgressBar);
         progressBar.setVisibility(View.VISIBLE);
         mParseInstallation = ParseInstallation.getCurrentInstallation();
         OpinApplication.mCurrentInstallation = mParseInstallation;
